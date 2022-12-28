@@ -16,16 +16,12 @@ public class User {
     private String adresse;
     private String email;
     private String motPasse;
-    private Date dateCreate;
-
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private Collection<Nourriture> nourritures;
+    private Date dateCreate = new Date();
 
     public User() {
     }
 
-    public User(long id, String nomPrenom, String adresse, String email, String motPasse) {
-        this.id = id;
+    public User(String nomPrenom, String adresse, String email, String motPasse) {
         this.nomPrenom = nomPrenom;
         this.adresse = adresse;
         this.email = email;
@@ -71,5 +67,13 @@ public class User {
 
     public void setMotPasse(String motPasse) {
         this.motPasse = motPasse;
+    }
+
+    public Date getDateCreate() {
+        return dateCreate;
+    }
+
+    public void setDateCreate(Date dateCreate) {
+        this.dateCreate = dateCreate;
     }
 }

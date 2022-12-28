@@ -1,49 +1,46 @@
 package com.apibackend.don.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.util.Date;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "typeDon", discriminatorType = DiscriminatorType.STRING)
 public class Don {
     @Id
     @GeneratedValue
     private long id;
+    @Column(name = "titre_annonce")
+    @JsonProperty("titreAnnonce")
     private String titreAnnonce;
     private String description;
     private String adresse;
     private String photo;
     private String status;
-    private Date dateCreate;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    private Date dateCreate = new Date();
+    @Column(name = "date_expiration")
+    @JsonProperty("dateExpiration")
+    private Date dateExpiration;
+    private String etat;
+    private String type;
+    @Column(name = "user_id")
+    @JsonProperty("userId")
+    private Long user_id;
 
     public Don() {
     }
 
-    public Don(long id, String titreAnnonce, String description, String adresse, String photo, String status, Date dateCreate) {
-        this.id = id;
+    public Don(String titreAnnonce, String description, String adresse, String photo, String status, Date dateExpiration, String etat, String type, Long user_id) {
         this.titreAnnonce = titreAnnonce;
         this.description = description;
         this.adresse = adresse;
         this.photo = photo;
         this.status = status;
-        this.dateCreate = new Date();
-    }
-
-    public Don(long id, String titreAnnonce, String description, String adresse, String photo, String status, Date dateCreate, User user) {
-        this.id = id;
-        this.titreAnnonce = titreAnnonce;
-        this.description = description;
-        this.adresse = adresse;
-        this.photo = photo;
-        this.status = status;
-        this.dateCreate =  new Date();
-        this.user = user;
+        this.dateExpiration = dateExpiration;
+        this.etat = etat;
+        this.type = type;
+        this.user_id = user_id;
     }
 
     public long getId() {
@@ -100,5 +97,37 @@ public class Don {
 
     public void setDateCreate(Date dateCreate) {
         this.dateCreate = dateCreate;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Date getDateExpiration() {
+        return dateExpiration;
+    }
+
+    public void setDateExpiration(Date dateExpiration) {
+        this.dateExpiration = dateExpiration;
+    }
+
+    public String getEtat() {
+        return etat;
+    }
+
+    public void setEtat(String etat) {
+        this.etat = etat;
+    }
+
+    public Long getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(Long user_id) {
+        this.user_id = user_id;
     }
 }
